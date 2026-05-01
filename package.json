@@ -1,0 +1,13 @@
+{
+  "name": "text-based-game",
+  "version": "1.0.0",
+  "description": "Simple text based game with Gemini backend proxy",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.4"
+  }
+}

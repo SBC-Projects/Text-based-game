@@ -11,11 +11,15 @@ This repository is designed as a simple base for building a "life-message" style
 - `script.js` - command handling and player behavior.
 - `images/BananaWalk.gif` - example image used by one of the commands.
 
-## How to use
+## Running the server
 
-1. Open `index.html` in a web browser.
-2. Type one of the built-in commands into the text area.
-3. Press Enter or click the button to run the command.
+1. Copy `.env.example` to `.env`.
+2. Set `GEMINI_API_KEY=your_gemini_api_key_here` in `.env`.
+3. Make sure `.env` is listed in `.gitignore` so your API key does not get shared.
+4. Run `npm install`.
+5. Run `npm start`.
+6. Open `http://localhost:3000` in your browser.
+
 
 ## Built-in commands
 

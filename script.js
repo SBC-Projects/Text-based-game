@@ -12,6 +12,57 @@ document.getElementById('enterButton').addEventListener('click', function() {
     document.getElementById('textarea').value = '';
 });
 
+document.getElementById('geminiButton').addEventListener('click', function() {
+    var prompt = document.getElementById('geminiInput').value;
+    sendToGemini(prompt);
+});
+
+document.getElementById('geminiInput').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        var prompt = document.getElementById('geminiInput').value;
+        sendToGemini(prompt);
+    }
+});
+
+async function sendToGemini(prompt) {
+    if (!prompt) {
+        document.getElementById('output').textContent = 'Enter a question for Gemini.';
+        return;
+    }
+
+    document.getElementById('geminiInput').value = '';
+    document.getElementById('output').textContent = 'Waiting for Gemini...';
+
+    try {
+        const response = await fetch('/gemini', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt })
+        });
+
+        if (!response.ok) {
+            let errorText = 'Gemini request failed.';
+            const errorBody = await response.text();
+            try {
+                const errorData = JSON.parse(errorBody);
+                errorText = errorData.error || JSON.stringify(errorData);
+            } catch (e) {
+                errorText = errorBody || errorText;
+            }
+            document.getElementById('output').textContent = errorText;
+            return;
+        }
+
+        const data = await response.json();
+        document.getElementById('output').textContent = data.text || 'No response from Gemini.';
+    } catch (error) {
+        document.getElementById('output').textContent = 'Gemini request failed: ' + error.message;
+    }
+}
+
 function analyseInput(input) {
     if (input.toLowerCase().includes('show mushroom')) {
         showMushroom();
