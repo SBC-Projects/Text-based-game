@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 7: Guidable Story Engine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="storyState" class="story-state-display"></div>
+    <div id="storySummary" class="story-section"></div>
+    <div id="narration" class="narrative-text"></div>
+    <p id="output"></p>
+    <div id="choices" class="choices-container"></div>
+    <label for="modelSelect">Choose Gemini model:</label>
+    <select id="modelSelect">
+        <option value="gemini-4-31b">gemini-4-31b</option>
+        <option value="gemini-4-26b">gemini-4-26b</option>
+        <option value="gemini-3-27b">gemini-3-27b</option>
+        <option value="gemini-3-12b">gemini-3-12b</option>
+    </select>
+
+    <label for="systemPromptSelect">Story Archetype:</label>
+    <select id="systemPromptSelect" style="display:none;">
+        <option value="Story engine">Story engine</option>
+    </select>
+
+    <label>
+        <input type="checkbox" id="multichatToggle" style="display:none;" />
+        Use multichat mode
+    </label>
+
+    <input type="text" id="input" placeholder="Ask Gemini a question..." />
+    <button id="enterButton">Ask</button>
+    <script type="module" src="script.js"></script>
+</body>
+</html></content>
+<parameter name="filePath">/workspaces/Text-based-game/public/part1/index.html

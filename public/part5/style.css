@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+#output {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 20px;
+    margin-bottom: 10px;
+}
+
+.chat-history {
+    border: 1px solid #aaa;
+    background: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.chat-entry {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.chat-user {
+    color: #1a1a8f;
+}
+
+.chat-assistant {
+    color: #0d8028;
+}
+
+input {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 5px 10px;
+}

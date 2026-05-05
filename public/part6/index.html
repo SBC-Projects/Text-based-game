@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 6: Choose Your Own Adventure (JSON)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="storySummary" class="story-section"></div>
+    <div id="narration" class="story-section"></div>
+    <div id="chatHistory" class="chat-history" aria-live="polite"></div>
+    <p id="output"></p>
+    <div id="choices" class="choices-container"></div>
+    <label for="modelSelect">Choose Gemini model:</label>
+    <select id="modelSelect">
+        <option value="gemini-4-31b">gemini-4-31b</option>
+        <option value="gemini-4-26b">gemini-4-26b</option>
+        <option value="gemini-3-27b">gemini-3-27b</option>
+        <option value="gemini-3-12b">gemini-3-12b</option>
+    </select>
+
+    <label for="systemPromptSelect">Choose system prompt:</label>
+    <select id="systemPromptSelect">
+        <option value="You are a fantasy storyteller. Always respond with valid JSON containing 'summary', 'narration', and 'choices' (array of strings). Example: {\"summary\": \"...\", \"narration\": \"...\", \"choices\": [\"...\", \"...\"]}">Fantasy Adventure</option>
+        <option value="You are a sci-fi narrator. Always respond with valid JSON containing 'summary', 'narration', and 'choices'. Return JSON only, no other text.">Sci-Fi Quest</option>
+        <option value="You are a mystery writer. Always respond with valid JSON containing 'summary', 'narration', and 'choices'. JSON format: {\"summary\": \"...\", \"narration\": \"...\", \"choices\": []}">Mystery Solver</option>
+    </select>
+
+    <label>
+        <input type="checkbox" id="multichatToggle" checked />
+        Use multichat mode
+    </label>
+
+    <input type="text" id="input" placeholder="Ask Gemini a question..." />
+    <button id="enterButton">Ask</button>
+    <script type="module" src="script.js"></script>
+</body>
+</html></content>
+<parameter name="filePath">/workspaces/Text-based-game/public/part1/index.html

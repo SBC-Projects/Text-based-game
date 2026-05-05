@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 4: Gemini AI Integration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="chatHistory" class="chat-history" aria-live="polite"></div>
+    <p id="output"></p>
+    <label for="modelSelect">Choose Gemini model:</label>
+    <select id="modelSelect">
+        <option value="gemini-4-31b">gemini-4-31b</option>
+        <option value="gemini-4-26b">gemini-4-26b</option>
+        <option value="gemini-3-27b">gemini-3-27b</option>
+        <option value="gemini-3-12b">gemini-3-12b</option>
+    </select>
+
+    <label for="systemPromptSelect">Choose system prompt:</label>
+    <select id="systemPromptSelect">
+        <option value="You are a helpful assistant.">Helpful assistant</option>
+        <option value="You are a game master guiding the player through a fantasy quest.">Fantasy game master</option>
+        <option value="You are a friendly tutor explaining concepts clearly and simply.">Tutor</option>
+    </select>
+
+    <label>
+        <input type="checkbox" id="multichatToggle" checked />
+        Use multichat mode
+    </label>
+
+    <input type="text" id="input" placeholder="Ask Gemini a question..." />
+    <button id="enterButton">Ask</button>
+    <script type="module" src="script.js"></script>
+</body>
+</html></content>
+<parameter name="filePath">/workspaces/Text-based-game/public/part1/index.html

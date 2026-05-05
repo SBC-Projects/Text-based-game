@@ -1,3 +1,5 @@
+// This server exists only to keep the Gemini API key in .env and proxy requests safely.
+// Students should not modify server.js; all frontend logic lives in the browser files.
 const express = require('express');
 const path = require('path');
 require('dotenv').config();
@@ -7,12 +9,14 @@ const PORT = process.env.PORT || 3000;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent';
 
+const GEMINI_FALLBACK_MODEL_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-lite-001:generateContent';
+
 if (!GEMINI_API_KEY) {
   console.warn('Warning: GEMINI_API_KEY is not set. Gemini requests will fail until it is provided.');
 }
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'public')));
 
 function extractTextFromContent(content) {
   if (content == null) {
@@ -40,6 +44,47 @@ function cleanGeminiText(text) {
   return text.replace(/\bmodel$/i, '').trim();
 }
 
+async function fetchGeminiResponse(modelUrl, prompt) {
+  const response = await fetch(modelUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-goog-api-key': GEMINI_API_KEY
+    },
+    body: JSON.stringify({
+      contents: [
+        {
+          parts: [
+            {
+              text: prompt
+            }
+          ]
+        }
+      ]
+    })
+  });
+
+  const bodyText = await response.text();
+  let data = null;
+  try {
+    data = JSON.parse(bodyText);
+  } catch (error) {
+    data = null;
+  }
+
+  return { response, data, bodyText };
+}
+
+function isQuotaError(response, bodyText) {
+  const lowercase = String(bodyText || '').toLowerCase();
+  return response.status === 403 || response.status === 429 || response.status === 507 ||
+    lowercase.includes('quota') ||
+    lowercase.includes('exceeded') ||
+    lowercase.includes('resource_exhausted') ||
+    lowercase.includes('rate limit') ||
+    lowercase.includes('quota exceeded');
+}
+
 app.post('/gemini', async (req, res) => {
   const prompt = req.body.prompt;
   if (!prompt || typeof prompt !== 'string') {
@@ -51,31 +96,25 @@ app.post('/gemini', async (req, res) => {
   }
 
   try {
-    const response = await fetch(GEMINI_MODEL_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-goog-api-key': GEMINI_API_KEY
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: prompt
-              }
-            ]
-          }
-        ]
-      })
-    });
+    let result = await fetchGeminiResponse(GEMINI_MODEL_URL, prompt);
+    let usedModel = GEMINI_MODEL_URL;
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      return res.status(response.status).send(errorText);
+    if (!result.response.ok && isQuotaError(result.response, result.bodyText)) {
+      const fallback = await fetchGeminiResponse(GEMINI_FALLBACK_MODEL_URL, prompt);
+      if (fallback.response.ok) {
+        result = fallback;
+        usedModel = GEMINI_FALLBACK_MODEL_URL;
+      } else {
+        const fallbackText = fallback.bodyText || 'Fallback model failed.';
+        return res.status(fallback.response.status).send(`Primary quota error; fallback failed: ${fallbackText}`);
+      }
     }
 
-    const data = await response.json();
+    if (!result.response.ok) {
+      return res.status(result.response.status).send(result.bodyText || 'Gemini request failed.');
+    }
+
+    const data = result.data;
     const candidate = data?.candidates?.[0];
     let text = '';
     if (candidate) {
@@ -91,7 +130,7 @@ app.post('/gemini', async (req, res) => {
       text = JSON.stringify(data);
     }
     text = cleanGeminiText(text);
-    res.json({ text });
+    res.json({ text, model: usedModel });
   } catch (error) {
     res.status(500).json({ error: error.message || 'Gemini request failed.' });
   }

@@ -20,6 +20,9 @@ This repository is designed as a simple base for building a "life-message" style
 5. Run `npm start`.
 6. Open `http://localhost:3000` in your browser.
 
+### Gemini model fallback
+
+The server uses `gemini-flash-latest` by default. If that model runs into a quota-related error, it automatically falls back to `gemini-lite-001` to reduce cost.
 
 ## Built-in commands
 

@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.story-section {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    background: #fafafa;
+}
+
+#storySummary {
+    font-weight: bold;
+    background: #e8f0fe;
+    border-left: 4px solid #1a73e8;
+}
+
+#narration {
+    font-size: 1.1em;
+    color: #333;
+}
+
+#output {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 20px;
+    margin-bottom: 10px;
+    background: #fff3cd;
+}
+
+.chat-history {
+    border: 1px solid #aaa;
+    background: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.chat-entry {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.chat-user {
+    color: #1a1a8f;
+}
+
+.chat-assistant {
+    color: #0d8028;
+}
+
+.choices-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.choice-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    text-align: left;
+}
+
+.choice-button:hover {
+    background-color: #0056b3;
+}
+
+input {
+    padding: 8px;
+    margin-right: 10px;
+    width: 300px;
+}
+
+button {
+    padding: 8px 15px;
+}
+
+select {
+    padding: 5px;
+    margin-right: 10px;
+}

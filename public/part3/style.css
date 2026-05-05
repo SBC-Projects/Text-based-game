@@ -1,0 +1,26 @@
+/* style.css - Styles for the input/output interface */
+
+/* Body styles: set font and basic layout */
+body {
+    font-family: Arial, sans-serif; /* Use a clean, readable font */
+    margin: 20px; /* Add margin around the page content */
+}
+
+/* Output paragraph styles: create a bordered area for responses */
+#output {
+    border: 1px solid #ccc; /* Light gray border */
+    padding: 10px; /* Space inside the border */
+    min-height: 20px; /* Minimum height to prevent collapsing */
+    margin-bottom: 10px; /* Space below the output area */
+}
+
+/* Input field styles: basic padding */
+input {
+    padding: 5px; /* Space inside the input field */
+    margin-right: 10px; /* Space to the right of the input */
+}
+
+/* Button styles: basic padding */
+button {
+    padding: 5px 10px; /* Vertical and horizontal padding */
+}
