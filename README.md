@@ -49,3 +49,5 @@ git clone https://github.com/SBC-Projects/Text-based-game.git
 ```
 
 They can then modify the HTML, CSS, and JavaScript to build their own version.
+
+There's a 'Text-based-game Explainer.docx' to download and read
